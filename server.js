@@ -12,6 +12,16 @@ app.use(cors());
 
 const PORT = process.env.PORT;
 
+const queryResults = [];
+function FormattedData(searchQuery, formattedQuery, latitude, longitude) {
+  this.search_query = searchQuery;
+  this.formatted_query = formattedQuery;
+  this.latitude = latitude;
+  this.longitude = longitude;
+
+
+}
+
 app.get('/location', (request, response) => {
   try {
     // const seattleData =
@@ -30,13 +40,7 @@ app.get('/location', (request, response) => {
     const lng = geoData.results[0].geometry.location.lng;
 
 
-    const formattedData = {
-      search_query: searchQuery,
-      formatted_query: formattedQuery,
-      latitude: lat,
-      longitude: lng
-    }
-    response.send(formattedData);
+    response.send(new FormattedData(searchQuery, formattedQuery, lat, lng));
   } catch (error) {
     console.error(error);
     response.send(error.message);
