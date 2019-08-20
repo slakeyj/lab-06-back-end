@@ -27,9 +27,13 @@ This application was designed with JavaScript
 
 ## Change Log
 
+08-20-2019 9:15am - Put together file structure.
+
 08-20-2019 10:00am - Created object literal to pull data from geo.json
 
 08-20-2019 10:15am - Made object literal into a constructor function and created a new instance of the location data which is appearing and the route is responsding in the deployed static client.
+
+08-20-2019 10:35am - Deployed Heroku
 
 
 ## Credits and Collaborations
