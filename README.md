@@ -33,7 +33,9 @@ This application was designed with JavaScript
 
 08-20-2019 10:15am - Made object literal into a constructor function and created a new instance of the location data which is appearing and the route is responsding in the deployed static client.
 
-08-20-2019 10:35am - Deployed Heroku
+08-20-2019 10:35am - Deployed Heroku.
+
+08-20-2019 10:35am - Weather data time is now converted from milliseconds into a date.
 
 
 ## Credits and Collaborations
