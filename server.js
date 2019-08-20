@@ -24,15 +24,14 @@ app.get('/location', (request, response) => {
   try {
     const geoData = require('./data/geo.json');
     const searchQuery = request.query.data;
-
+    // put next 4 lines into if statement for catching error
     const formattedQuery = geoData.results[0].formatted_address;
     const lat = geoData.results[0].geometry.location.lat;
     const lng = geoData.results[0].geometry.location.lng;
-
-
     response.send(new FormattedData(searchQuery, formattedQuery, lat, lng));
   } catch (error) {
     console.error(error);
+    //add if statement
     response.status(500).send('Something went wrong!');
   }
 })
@@ -58,6 +57,7 @@ app.get('/weather', (request, response) => {
 
   } catch (error) {
     console.error(error);
+
     response.status(500).send('Something went wrong!');
   }
 })
