@@ -33,7 +33,7 @@ app.get('/location', (request, response) => {
     response.send(new FormattedData(searchQuery, formattedQuery, lat, lng));
   } catch (error) {
     console.error(error);
-    response.send(error.message);
+    response.status(500).send('Something went wrong!');
   }
 })
 
@@ -41,14 +41,16 @@ app.get('/location', (request, response) => {
 
 
 function WeatherGetter(weatherValue) {
-  this.summary = weatherValue.summary;
-  this.time = weatherValue.time;
+  this.forecast = weatherValue.summary;
+  this.time = new Date(weatherValue.time * 1000).toDateString();
 }
 
 app.get('/weather', (request, response) => {
   try {
     const darkskyData = require('./data/darksky.json');
     const dailyData = darkskyData.daily.data.map(value => {
+      console.log('value.summary is', value.summary);
+      console.log('value.time is', value.time);
       return new WeatherGetter(value);
     })
 
@@ -56,7 +58,7 @@ app.get('/weather', (request, response) => {
 
   } catch (error) {
     console.error(error);
-    response.send(error.message);
+    response.status(500).send('Something went wrong!');
   }
 })
 
