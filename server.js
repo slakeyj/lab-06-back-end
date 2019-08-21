@@ -60,7 +60,6 @@ app.get('/weather', (request, response) => {
 
   } catch (error) {
     console.error(error);
-    
     response.status(500).send('Something went wrong!');
   }
 })
