@@ -1,29 +1,56 @@
 ## City Explorer
 
 
-Number and name of feature: ________________________________
+Number and name of feature: User Acceptance Tests
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 5
 
-Start time: _____
+Start time: 9 am
 
-Finish time: _____
+Finish time: 1:50 pm
 
-Actual time needed to complete: _____
+Actual time needed to complete: 3 hours 50 minutes
 
 
-# lab-06-back-end**Author**: Your Name Goes Here
+# lab-06-back-end**Author**: Susanna Lakey
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
 <!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+* This app is intended to create the back-end for a website that will take in a users search for a city.  It will then output the following for the selected city:
+* A google map of the city
+* Results from the Dark Sky API
+* Results from the Yelp API
+* Results from the Eventbrite API
+* Results from The Movie DB API
+* Results from the Hiking Project API
+
 
 ## Getting Started
 <!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+* Create your repository and clone it into the file you would like it to reside in
+* Add .eslintrc.json and .gitignore files
+* Type npm init to create a package.json
+* Install express, cors, and dotenv (for example: npm install express)
+* Require all in your javascript file
+* Create a port and store it in your .env file
+* Create a route for each of your API's data
+* Create a constructor function for each API.
+* Create variables for where each item is stored in the API's data.  Then plug those variables into your constructor to create an instance of that object.
+* Send your data
 
 ## Architecture
-This application was designed with JavaScript
 <!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+* This application was designed with JavaScript
+* It makes use of express, dotenv, cors, and node.
+* It gathers data from the following APIs:
+  * Google
+  * Dark Sky
+  * Yelp
+  * Eventbrite
+  * The Movie DB
+  * The Hiking Project
+
 
 ## Change Log
 
@@ -40,4 +67,3 @@ This application was designed with JavaScript
 
 ## Credits and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
--->

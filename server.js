@@ -7,7 +7,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-
+const superagent = require('superagent');
 app.use(cors());
 
 const PORT = process.env.PORT;
@@ -21,24 +21,27 @@ function FormattedData(searchQuery, formattedQuery, latitude, longitude) {
 }
 
 app.get('/location', (request, response) => {
-  try {
-    const geoData = require('./data/geo.json');
-    const searchQuery = request.query.data;
-    // put next 4 lines into if statement for catching error
-    const formattedQuery = geoData.results[0].formatted_address;
-    const lat = geoData.results[0].geometry.location.lat;
-    const lng = geoData.results[0].geometry.location.lng;
+  const searchQuery = request.query.data;
+
+  const urlToVisit = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchQuery}&key=AIzaSyA_LtFEnrulfdY1aqMZdRTYbSMcRezA4k4`;
+
+  // superagent.get('url as a string');
+  superagent.get(urlToVisit).then(responseFromSuper => {
+    console.log('stuff', responseFromSuper.body);
+    // replaced geoData quired with the data in the body of my superagent response
+    const geoData = responseFromSuper.body;
+    const specificGeoData = geoData.results[0];
+    const formattedQuery = specificGeoData.formatted_address;
+    const lat = specificGeoData.geometry.location.lat;
+    const lng = specificGeoData.geometry.location.lng;
     response.send(new FormattedData(searchQuery, formattedQuery, lat, lng));
-  } catch (error) {
+  }).catch(error => {
+    response.status(500).send(error.message);
     console.error(error);
-    //add if statement
-    response.status(500).send('Something went wrong!');
-  }
+  });
 })
 
 // WEATHER DATA
-
-
 function WeatherGetter(weatherValue) {
   this.forecast = weatherValue.summary;
   this.time = new Date(weatherValue.time * 1000).toDateString();
@@ -47,18 +50,11 @@ function WeatherGetter(weatherValue) {
 app.get('/weather', (request, response) => {
   try {
     const darkskyData = require('./data/darksky.json');
-    const dailyData = darkskyData.daily.data.map(value => {
-      console.log('value.summary is', value.summary);
-      console.log('value.time is', value.time);
-      return new WeatherGetter(value);
-    })
-
+    const dailyData = darkskyData.daily.data.map(value => new WeatherGetter(value));
     response.send(dailyData);
-
   } catch (error) {
     console.error(error);
-
-    response.status(500).send('Something went wrong!');
+    response.status(500).send(error.message);
   }
 })
 
